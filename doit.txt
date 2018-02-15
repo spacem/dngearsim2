@@ -1,0 +1,5 @@
+
+ng g module builds
+ng g module item
+ng g module online
+ng g module search

@@ -8,11 +8,59 @@ import { JobIconComponent } from './job-icon/job-icon.component';
 import { LoadingComponent } from './loading/loading.component';
 import { StatsComponent } from './stats/stats.component';
 import { RegionComponent } from './region/region.component';
+import { TranslationService } from './translation.service';
+import { RegionService } from './region.service';
+import { DntService } from './dnt.service';
+import { DntInitService } from './dnt-init.service';
+import { DntResetService } from './dnt-reset.service';
+import { ExportLinkService } from './export-link.service';
+import { ItemCategoryService } from './item-category.service';
+import { ItemSourceService } from './item-source.service';
+import { ItemFactoryService } from './item-factory.service';
+import { JobService } from './job.service';
+import { LoadingService } from './loading.service';
+import { TranslateModule } from '@ngx-translate/core';
+import { HttpClientModule } from '@angular/common/http';
+import { SaveService } from './save.service';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    HttpClientModule,
+    TranslateModule.forChild(),
   ],
-  declarations: [ChooseClassComponent, CategoryLinksComponent, ItemIconComponent, ItemLinkComponent, JobIconComponent, LoadingComponent, StatsComponent, RegionComponent]
+  exports: [
+    ChooseClassComponent,
+    CategoryLinksComponent,
+    ItemIconComponent,
+    ItemLinkComponent,
+    JobIconComponent,
+    LoadingComponent,
+    StatsComponent,
+    RegionComponent
+  ],
+  providers: [
+    TranslationService,
+    RegionService,
+    DntService,
+    DntInitService,
+    DntResetService,
+    ExportLinkService,
+    ItemCategoryService,
+    ItemSourceService,
+    ItemFactoryService,
+    JobService,
+    LoadingService,
+    SaveService
+  ],
+  declarations: [
+    ChooseClassComponent,
+    CategoryLinksComponent,
+    ItemIconComponent,
+    ItemLinkComponent,
+    JobIconComponent,
+    LoadingComponent,
+    StatsComponent,
+    RegionComponent]
 })
 export class CoreModule { }

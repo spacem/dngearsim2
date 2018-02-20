@@ -18,6 +18,9 @@ import { ViewGroupComponent } from './view-group/view-group.component';
 import { ExportComponent } from './export/export.component';
 import { CoreModule } from '../core/core.module';
 import { BuildsRoutingModule } from './builds-routing.module';
+import { QuickAddHelperService } from './quick-add-helper.service';
+import { QuickAddService } from './quick-add.service';
+import { QuickAddStepsService } from './quick-add-steps.service';
 
 @NgModule({
   imports: [
@@ -42,6 +45,11 @@ import { BuildsRoutingModule } from './builds-routing.module';
     ReloadBuildComponent,
     ViewGroupComponent,
     ExportComponent
+  ],
+  providers: [
+    QuickAddHelperService,
+    QuickAddService,
+    QuickAddStepsService
   ]
 })
 export class BuildsModule { }

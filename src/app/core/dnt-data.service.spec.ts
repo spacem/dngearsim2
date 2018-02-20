@@ -1,15 +1,15 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { DntDataService } from './dnt-data.service';
+import { DntService } from './dnt.service';
 
 describe('DntDataService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [DntDataService]
+      providers: [DntService]
     });
   });
 
-  it('should be created', inject([DntDataService], (service: DntDataService) => {
+  it('should be created', inject([DntService], (service: DntService) => {
     expect(service).toBeTruthy();
   }));
 });

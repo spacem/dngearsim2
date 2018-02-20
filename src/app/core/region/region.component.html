@@ -1,3 +1,106 @@
-<p>
-  region works!
-</p>
+<div class="toggle-box">
+  <button 
+    class="light-toggle toggle-box-button"
+    (click)="edit = !edit;"
+    title="{{getDntLocation().name}}">
+    {{getDntLocation().region}}
+  </button>
+  <span>
+    &nbsp;{{dntVersion}}
+  </span>
+</div>
+  <!-- <button class="toggle-text" (click)="edit = true">&nbsp;{{getWorldName()}}&nbsp;</button> -->
+<div *ngIf="edit" class="toggle-box">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 region-heading">
+        <br />
+        select region<br><small>지역 선택 / 选择地区 </small>
+      </div>
+    </div>
+    <div class="row" *ngFor="let currentLocation of getHostedFiles()">
+      <a
+        routerLink="#"
+        class="region-hover"
+        (click)="setLocation(currentLocation)"
+        (mouseover)="hoverLocation = currentLocation"
+        (mouseleave)="hoverLocation = getDntLocation()">
+        
+        <div class="col-xs-10 col-sm-11 text-right toggle-text">
+          {{currentLocation.name}}
+        </div>
+        <div class="col-xs-2 col-sm-1">
+  
+          <button
+            class="toggle-box-button"
+            [ngClass]="{'dark-toggle' : currentLocation != hoverLocation, 'light-toggle' : currentLocation == hoverLocation}" 
+            (click)="setLocation(currentLocation)"
+            title="{{currentLocation.name}}">
+            {{currentLocation.region}}
+          </button>
+        </div>
+      </a>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 region-heading">
+        <br />
+        translation override
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-6 col-sm-10">
+      </div>
+      <div class="col-xs-3 col-sm-1">
+        <button
+          class="toggle-box-button"
+          [ngClass]="{'dark-toggle' : !override, 'light-toggle' : override}" 
+          (click)="setOverride(true)"
+          title="yes">
+          yes
+        </button>
+      </div>
+      <div class="col-xs-3 col-sm-1">
+        <button
+          class="toggle-box-button"
+          [ngClass]="{'dark-toggle' : override, 'light-toggle' : !override}" 
+          (click)="setOverride(false)"
+          title="no">
+          no
+        </button>
+      </div>
+    </div>
+    <div class="row" *ngIf="override">
+      <div class="col-xs-12">
+        <br />
+        this.translationService
+      </div>
+    </div>
+    <ng-container *ngIf="override">
+      <div class="row" *ngFor="let currentLocation of getHostedFiles()">
+        <a
+          routerLink="#"
+          class="region-hover"
+          (click)="setTLocation(currentLocation)"
+          (mouseover)="tHoverLocation = currentLocation"
+          (mouseleave)="tHoverLocation = getTlocation()">
+          
+          <div class="col-xs-10 col-sm-11 text-right toggle-text">
+            {{currentLocation.name}}
+          </div>
+          <div class="col-xs-2 col-sm-1">
+    
+            <button
+              class="toggle-box-button"
+              [ngClass]="{'dark-toggle' : currentLocation != tHoverLocation, 'light-toggle' : currentLocation == tHoverLocation}" 
+              (click)="setTLocation(currentLocation)"
+              title="{{currentLocation.name}}">
+              {{currentLocation.region}}
+            </button>
+          </div>
+        </a>
+      </div>
+    </ng-container>
+    
+    <br />
+  </div>
+</div>

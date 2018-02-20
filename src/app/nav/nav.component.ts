@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { RegionService } from '../core/region.service';
+import { SaveService } from '../core/save.service';
+import { TranslationService } from '../core/translation.service';
 
 @Component({
   selector: 'app-nav',
@@ -7,9 +10,109 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavComponent implements OnInit {
 
-  constructor() { }
+  savedItems: any;
+  simError: null;
+  noLocationMenu = [];
+  normalMenu = [
+    {path: 'builds', name:'builds', icon: 'menu-hamburger'},
+    {path: 'search', name:'search', icon: 'search'},
+    ];
+  
+  buildAction = {path: 'build', name:'build', build: null};
+  
+  withBuildMenu = [
+    {path: 'builds', name: 'builds', icon: 'menu-hamburger'},
+    {path: 'search', name: 'search', icon: 'search'},
+    this.buildAction,
+    ];
+
+  constructor(
+    private regionService: RegionService,
+    private saveService: SaveService,
+    private translationService: TranslationService) { }
 
   ngOnInit() {
+    this.regionService.init();
+  }
+
+  isSearch() {
+    return window.location.pathname.indexOf('/search') > -1;
+  }
+
+  isLoading() {
+    return this.translationService.startedLoading && 
+          !this.translationService.isLoaded() &&
+          this.regionService.tLocation != null &&
+          this.regionService.tLocation.url != '' &&
+          !this.noRegion();
+  }
+  
+  noRegion() {
+    return this.regionService.dntLocation == null;
+  }
+  
+  isHttpOnly() {
+    return location.protocol != 'https:' && location.hostname != 'localhost';
+  }
+    
+  getActions() {
+    try {
+      var menu = null;
+      
+      var currentBuild = this.saveService.getCurrentBuild();
+      if(currentBuild) {
+        if(!this.savedItems || !(currentBuild in this.savedItems)) {
+          // console.log('loading saved items');
+          this.savedItems = this.saveService.getSavedItems();
+        }
+        
+        if(!(currentBuild in this.savedItems)) {
+          currentBuild = null;
+        }
+      }
+
+      if(this.regionService.dntLocation != null && this.regionService.dntLocation.url == '') {
+        menu = this.noLocationMenu; 
+      }
+      else if(this.regionService.tLocation != null && this.regionService.tLocation.url == '') {
+        menu = this.noLocationMenu; 
+      }
+      else if(currentBuild && currentBuild != 'null') {
+        menu = this.withBuildMenu;
+        this.buildAction.path = 'build?buildName=' + currentBuild;
+        this.buildAction.name = currentBuild;
+        if(currentBuild in this.savedItems) {
+          this.buildAction.build = this.savedItems[currentBuild];
+        }
+      }
+      else if(window.location.pathname == '/view-group' || this.regionService.dntLocation == null) {
+        menu = this.normalMenu;
+      }
+      else {
+        menu = this.normalMenu;
+      }
+      
+      var path = window.location.pathname;
+      menu.forEach(value => {
+        delete value.extraCss;
+        if(path && path.length == 1) {
+          if(value.path.length == 1) {
+            value.extraCss = 'active';
+          }
+        }
+        else if(value.path && value.path.length > 1 && path.indexOf('/' + value.path) == 0) {
+          if(value.path != 'builds' || path == '/builds') {
+            value.extraCss = 'active';
+          }
+        }
+      });
+      
+      return menu;
+    }
+    catch(ex) {
+      this.simError = ex.message;
+      console.error(ex);
+    }
   }
 
 }

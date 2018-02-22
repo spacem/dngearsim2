@@ -12,7 +12,7 @@ export class ItemCategoryService {
     private itemSourceService: ItemSourceService
   ) { }
 
-  categories: [
+  categories = [
     { path: 'everything', name: 'everything', searchType: 'everything', hideInBuild: true },
     { path: 'titles', name: 'titles', sourceType: 'titles', hideRank: true, hideJob: true, hideLevel: true, numItemText: '1', maxCat: 1 },
     { path: 'weapons', name: 'weapons', sourceType: 'equipment', numItemText: '2', maxExchange: 1, maxCat: 2, limitExchange: [1, 2] },
@@ -148,7 +148,7 @@ export class ItemCategoryService {
     return true;
   }
 
-  async init(name: string, complete: any) {
+  async init(name: string) {
     var cat = this.byName(name);
     if (cat && 'sourceType' in cat) {
       var sources = Object.values(this.itemSourceService.sources).filter(source => {
@@ -157,7 +157,6 @@ export class ItemCategoryService {
 
       var numComplete = 0;
       await Promise.all(sources.map(source => source.init()));
-      complete();
     }
   }
 

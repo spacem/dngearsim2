@@ -19,6 +19,7 @@ import { ItemViewTuningComponent } from './item-view-tuning/item-view-tuning.com
 import { ItemComponent } from './item/item.component';
 import { ItemRoutingModule } from './item-routing.module';
 import { CoreModule } from '../core/core.module';
+import { BuildAssignmentComponent } from './build-assignment/build-assignment.component';
 
 @NgModule({
   imports: [
@@ -43,7 +44,11 @@ import { CoreModule } from '../core/core.module';
     ItemViewShopComponent,
     ItemViewTransferComponent,
     ItemViewTuningComponent,
-    ItemComponent
+    ItemComponent,
+    BuildAssignmentComponent
+  ],
+  exports: [
+    BuildAssignmentComponent
   ]
 })
 export class ItemModule { }

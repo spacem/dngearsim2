@@ -6,12 +6,20 @@ import { SearchComponent } from './search/search.component';
 import { SkillSearchComponent } from './skill-search/skill-search.component';
 import { SearchRoutingModule } from './search-routing.module';
 import { CoreModule } from '../core/core.module';
+import { FormsModule } from '@angular/forms'; 
+import { TranslateModule } from '@ngx-translate/core';
+import { BuildsModule } from '../builds/builds.module';
+import { ItemModule } from '../item/item.module';
 
 @NgModule({
   imports: [
     CommonModule,
     SearchRoutingModule,
-    CoreModule
+    CoreModule,
+    BuildsModule,
+    ItemModule,
+    FormsModule,
+    TranslateModule.forChild()
   ],
   declarations: [CustomItemsComponent, EverythingSearchComponent, SearchComponent, SkillSearchComponent]
 })

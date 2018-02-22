@@ -21,6 +21,7 @@ import { BuildsRoutingModule } from './builds-routing.module';
 import { QuickAddHelperService } from './quick-add-helper.service';
 import { QuickAddService } from './quick-add.service';
 import { QuickAddStepsService } from './quick-add-steps.service';
+import { ItemModule } from '../item/item.module';
 
 @NgModule({
   imports: [
@@ -50,6 +51,9 @@ import { QuickAddStepsService } from './quick-add-steps.service';
     QuickAddHelperService,
     QuickAddService,
     QuickAddStepsService
+  ],
+  exports: [
+    BuildItemComponent
   ]
 })
 export class BuildsModule { }

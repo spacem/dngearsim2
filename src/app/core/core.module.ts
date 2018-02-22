@@ -22,6 +22,7 @@ import { LoadingService } from './loading.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { HttpClientModule } from '@angular/common/http';
 import { SaveService } from './save.service';
+import { ValuesService } from './values.service';
 
 @NgModule({
   imports: [
@@ -51,7 +52,8 @@ import { SaveService } from './save.service';
     ItemFactoryService,
     JobService,
     LoadingService,
-    SaveService
+    SaveService,
+    ValuesService
   ],
   declarations: [
     ChooseClassComponent,

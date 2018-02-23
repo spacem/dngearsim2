@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { RegionService } from '../region.service';
+import { ExportLinkService } from '../export-link.service';
 
 @Component({
   selector: 'app-item-link',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ItemLinkComponent implements OnInit {
 
-  constructor() { }
+  @Input() item: any;
+
+  itemLink;
+  constructor(
+    private regionService: RegionService,
+    private exportLinkService: ExportLinkService) {}
 
   ngOnInit() {
+    this.itemLink = this.regionService.dntLocation.region + '/item/' + this.exportLinkService.encodeItem(this.item);
   }
 
 }

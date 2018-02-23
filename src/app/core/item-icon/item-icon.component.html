@@ -1,3 +1,5 @@
-<p>
-  item-icon works!
-</p>
+<span
+  *ngIf="iconImage"
+  class="item-icon {{item.rank.name}}-grade"
+  [ngStyle]="{'background': 'url(assets/images/icons/' + iconImage + ')', 'background-position': '-' + getIconXPostion() + 'px -' + getIconYPostion() + 'px'}">&nbsp;
+</span>

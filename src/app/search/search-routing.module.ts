@@ -4,8 +4,8 @@ import { EverythingSearchComponent } from './everything-search/everything-search
 import { SearchComponent } from './search/search.component';
 
 const routes: Routes = [
-  { path: '', component: SearchComponent },
-  { path: 'everything', component: EverythingSearchComponent },
+  { path: '', redirectTo: 'everything' },
+  { path: ':category', component: SearchComponent },
 ];
 
 @NgModule({

@@ -34,24 +34,23 @@ export class ItemSource extends ItemSourceData {
   items = null;
 
   async init() {
+    console.log('init source');
     this.loading = true;
-
-    if (this.items) {
-      return;
-    }
-
-    await this.translationService.init();
-    await this.dntService.init(this.mainDnt);
+    const p: Promise<any>[] = [
+      this.translationService.init(),
+      this.dntService.init(this.mainDnt)];
 
     if (this.potentialDnt) {
-      await this.dntService.init(this.potentialDnt);
+      p.push(this.dntService.init(this.potentialDnt))
     }
     if (this.potentialDntEx) {
-      await this.dntService.init(this.potentialDntEx);
+      p.push(this.dntService.init(this.potentialDntEx));
     }
     if (this.gemDnt) {
-      await this.dntService.init(this.gemDnt);
+      p.push(this.dntService.init(this.gemDnt));
     }
+
+    await Promise.all(p);
 
     this.loading = false;
   }
@@ -290,7 +289,7 @@ export class ItemSourceService {
 
   createSource(data: ItemSourceData) {
     const source = new ItemSource(this.translationService, this.dntService);
-    Object.assign(data, source);
+    Object.assign(source, data);
     this.sources[source.name] = source;
   }
 }

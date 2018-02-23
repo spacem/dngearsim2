@@ -1,3 +1,7 @@
-<p>
-  item-link works!
-</p>
+<a class="{{item.rank && item.rank.name}}-grade text-left" [routerLink]="itemLink">
+  <app-item-icon [item]="item" style="float: left;"></app-item-icon>
+  <span *ngIf="item.enchantmentNum > 0">
+    +{{item.enchantmentNum}}<span *ngIf="item.typeName == 'talisman'">%</span>
+  </span>
+  <span *ngIf="item.levelLimit > 1">lv{{item.levelLimit}}</span> {{item.name}}
+</a>

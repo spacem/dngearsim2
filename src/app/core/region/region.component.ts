@@ -28,7 +28,6 @@ export class RegionComponent implements OnInit {
 
   ngOnInit() {
     this.regionService.init();
-    this.translationService.init();
     this.setDntVersion();
   }
   

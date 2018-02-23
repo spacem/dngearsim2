@@ -23,12 +23,15 @@ import { TranslateModule } from '@ngx-translate/core';
 import { HttpClientModule } from '@angular/common/http';
 import { SaveService } from './save.service';
 import { ValuesService } from './values.service';
+import { RouterModule } from '@angular/router';
+import { StatService } from './stat.service';
 
 @NgModule({
   imports: [
     CommonModule,
     HttpClientModule,
     TranslateModule.forChild(),
+    RouterModule
   ],
   exports: [
     ChooseClassComponent,
@@ -53,7 +56,9 @@ import { ValuesService } from './values.service';
     JobService,
     LoadingService,
     SaveService,
-    ValuesService
+    ValuesService,
+    LoadingService,
+    StatService
   ],
   declarations: [
     ChooseClassComponent,

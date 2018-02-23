@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { BuildsModule } from '../builds/builds.module';
 import { ItemModule } from '../item/item.module';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { ItemModule } from '../item/item.module';
     BuildsModule,
     ItemModule,
     FormsModule,
-    TranslateModule.forChild()
+    TranslateModule.forChild(),
+    InfiniteScrollModule
   ],
   declarations: [CustomItemsComponent, EverythingSearchComponent, SearchComponent, SkillSearchComponent]
 })

@@ -12,7 +12,7 @@ export class ItemCategoryService {
     private itemSourceService: ItemSourceService
   ) { }
 
-  categories = [
+  categories: any[] = [
     { path: 'everything', name: 'everything', searchType: 'everything', hideInBuild: true },
     { path: 'titles', name: 'titles', sourceType: 'titles', hideRank: true, hideJob: true, hideLevel: true, numItemText: '1', maxCat: 1 },
     { path: 'weapons', name: 'weapons', sourceType: 'equipment', numItemText: '2', maxExchange: 1, maxCat: 2, limitExchange: [1, 2] },
@@ -33,14 +33,7 @@ export class ItemCategoryService {
   ];
 
   byName(name: string) {
-    var retVal = null;
-    this.categories.forEach(category => {
-      if (category.name == name) {
-        retVal = category;
-      }
-    });
-
-    return retVal;
+    return this.categories.find(c => c.name === name);
   }
 
   byPath(name: string) {
@@ -58,19 +51,17 @@ export class ItemCategoryService {
     var cat = this.byName(name);
     if (cat && 'sourceType' in cat) {
       var retVal = [];
-      for (let sourceName of Object.keys(this.itemSourceService.sources)) {
-        const source = this.itemSourceService.sources[sourceName];
-        if (source.type == cat.sourceType && retVal) {
-          if (!source.items && !source.loading) {
-            this.itemFactoryService.loadItems(source);
-          }
+      const sources = Object.values(this.itemSourceService.sources).filter(s => s.type === cat.sourceType);
+      for (let source of sources) {
+        if (!source.items && !source.loading) {
+          this.itemFactoryService.loadItems(source);
+        }
 
-          if (source.items) {
-            retVal = retVal.concat(source.items);
-          }
-          else {
-            retVal = null; // if any are null just return null
-          }
+        if (source.items) {
+          retVal = retVal.concat(source.items);
+        }
+        else {
+          retVal = null; // if any are null just return null
         }
       }
 
@@ -149,6 +140,7 @@ export class ItemCategoryService {
   }
 
   async init(name: string) {
+    console.log('init source ', name);
     var cat = this.byName(name);
     if (cat && 'sourceType' in cat) {
       var sources = Object.values(this.itemSourceService.sources).filter(source => {

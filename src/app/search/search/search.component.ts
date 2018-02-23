@@ -15,8 +15,8 @@ import { ItemFactoryService } from '../../core/item-factory.service';
 export class SearchComponent implements OnInit {
   
   origJobNumber: number;
-  rankChecked: { 0: boolean; 1: boolean; 2: boolean; 3: boolean; 4: boolean; 5: boolean; };
-  nameSearch: string;
+  rankChecked: any = { 0: true, 1: true, 2: true, 3: true, 4: true, 5: true };
+  nameSearch = '';
   origMaxLevel: number;
   origMinLevel: number;
   origSavedSearchStatId: number;
@@ -43,13 +43,29 @@ export class SearchComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router
   ) {
-    this.setup();
   }
 
   async ngOnInit() {
-    await this.regionService.init();
-    await this.translationService.init();
-    this.init();
+    this.itemCategory = this.itemCategoryService.byName(this.route.snapshot.paramMap.get('category'));
+    console.log('got category', this.itemCategory);
+    if(this.itemCategory) {
+      this.save();
+    }
+
+    await Promise.all([
+      this.regionService.init(),
+      this.jobService.init(),
+      this.itemCategoryService.init(this.itemCategory.name)]);
+
+    this.jobInit();
+    this.loadResults();
+    this.setup();
+
+    this.route.paramMap.subscribe(params => {
+      this.itemCategory = this.itemCategoryService.byName(params.get('category'));
+      this.itemCategoryService.init(this.itemCategory.name);
+      this.loadResults();
+    });
   }
 
   setup() {
@@ -74,11 +90,6 @@ export class SearchComponent implements OnInit {
       }
       return;
     }
-    
-    
-    window.document.title = 'dngearsim | SEARCH ' + this.itemCategory.name.toUpperCase();
-
-
   
     Object.values(this.valuesService.stats).forEach(stat => {
       if(stat.searchable) {
@@ -124,20 +135,6 @@ export class SearchComponent implements OnInit {
       this.stat = this.valuesService.stats[this.origSavedSearchStatId];
     }
     */
-  }
-
-  navigate() {
-    var catName = localStorage.getItem('selectedItemCategory');
-    if(catName) {
-      this.itemCategory = this.itemCategoryService.byName(catName);
-      if(this.itemCategory) {
-        // console.log('navigating to ', this.itemCategory.path);
-        /** TODO:
-        $location.search('cat', this.itemCategory.path);
-        $route.reload(); */
-        this.save();
-      }
-    }
   }
 
   save() {
@@ -194,15 +191,8 @@ export class SearchComponent implements OnInit {
     localStorage.setItem('nameSearch', this.nameSearch);
     // $location.search('name', this.nameSearch);
   };
-  
-  async init() {
-    await this.jobService.init();
-    this.jobInit();
-  }
 
   async jobInit() {
-    // console.log('called the job init func');
-    await this.jobService.init();
     if(this.translationService.isLoaded() && this.jobService.isLoaded()) {
       // console.log('trying to init jobs');
       // console.log('job dropdown should be set');
@@ -224,9 +214,6 @@ export class SearchComponent implements OnInit {
           }
         });
       }
-
-      await this.itemCategoryService.init(this.itemCategory.name);
-      this.loadResults();
     }
   }
     
@@ -243,6 +230,7 @@ export class SearchComponent implements OnInit {
   getResults() {
     var allItems = this.itemCategoryService.getItems(this.itemCategory.name);
     if(allItems == null) {
+      console.log('no items in cat');
       return null;
     }
     

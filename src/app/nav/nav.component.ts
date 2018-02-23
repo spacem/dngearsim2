@@ -13,16 +13,18 @@ export class NavComponent implements OnInit {
   savedItems: any;
   simError: null;
   noLocationMenu = [];
+  searchAction = {path: 'search', name:'search', icon: 'search'};
+  buildsAction = {path: 'builds', name:'builds', icon: 'menu-hamburger'};
+  buildAction = {path: 'build', name:'build', build: null};
+
   normalMenu = [
-    {path: 'builds', name:'builds', icon: 'menu-hamburger'},
-    {path: 'search', name:'search', icon: 'search'},
+    this.buildsAction,
+    this.searchAction
     ];
   
-  buildAction = {path: 'build', name:'build', build: null};
-  
   withBuildMenu = [
-    {path: 'builds', name: 'builds', icon: 'menu-hamburger'},
-    {path: 'search', name: 'search', icon: 'search'},
+    this.buildsAction,
+    this.searchAction,
     this.buildAction,
     ];
 
@@ -31,8 +33,16 @@ export class NavComponent implements OnInit {
     private saveService: SaveService,
     private translationService: TranslationService) { }
 
-  ngOnInit() {
-    this.regionService.init();
+  async ngOnInit() {
+    await this.regionService.init();
+    this.regionService.regionChangeSubject.subscribe(() => {
+      this.setupActions();
+    });
+    this.setupActions();
+  }
+
+  setupActions() {
+    this.searchAction.path = this.regionService.dntLocation.region + '/search';
   }
 
   isSearch() {

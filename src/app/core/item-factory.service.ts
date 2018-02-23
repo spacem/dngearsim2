@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { TranslationService } from './translation.service';
 import { DntService } from './dnt.service';
 import { ValuesService, Stat } from './values.service';
-import { ItemSourceService } from './item-source.service';
+import { ItemSourceService, ItemSource } from './item-source.service';
 
 export interface Item {
   row?: any;
@@ -94,9 +94,10 @@ export class ItemFactoryService {
 
   }
   
-  loadItems(itemType: any) {
+  loadItems(itemType: ItemSource) {
 
     if(!this.isDataLoaded(itemType)) {
+      console.log('data not loaded for ', itemType);
       return null;
     }
     

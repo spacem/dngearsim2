@@ -7,11 +7,12 @@ import { WelcomeComponent } from './welcome/welcome.component';
 const routes: Routes = [
   { path: '', component: WelcomeComponent },
   { path: 'about', component: AboutComponent },
-
+  
   { path: 'builds', loadChildren: './builds/builds.module#BuildsModule' },
-  { path: 'item', loadChildren: './item/item.module#ItemModule' },
   { path: 'online', loadChildren: './online/online.module#OnlineModule' },
-  { path: 'search', loadChildren: './search/search.module#SearchModule' }
+
+  { path: ':region/item', loadChildren: './item/item.module#ItemModule' },
+  { path: ':region/search', loadChildren: './search/search.module#SearchModule' }
 ];
 
 @NgModule({

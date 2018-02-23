@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { DntReader } from './dnt-reader';
 import { Subject } from 'rxjs/Subject';
-import { Region } from './region.service';
+import { Region, RegionService } from './region.service';
 
 class DntLoader {
 
@@ -15,36 +15,30 @@ class DntLoader {
 
   loaded = false;
   startedLoading = false;
+  failed = false;
 
   init() {
-
     if (this.loaded) {
+      return Promise.resolve();
     }
     else {
       if (!this.startedLoading) {
-        this.startedLoading = true;
-        var t = this;
 
         if (this.dntLocation &&
           this.dntLocation.url &&
           this.dntLocation.url.length) {
 
+          this.startedLoading = true;
+
           this.loadSubject.next('DNTDATA_LOAD_EVENT');
 
-          t.reader.loadDntFromServerFile(
-            t.dntLocation.url + '/' + this.file,
-            function (msg) {
-              // if(t.progressCallback) {
-              // t.progressCallback(msg);
-              // }
-            },
-            function (result, fileName) {
-              // console.info('dnt loading complete : ' + file);
-              t.loaded = true;
+          return this.reader.loadDntFromServerFile(
+            this.dntLocation.url + '/' + this.file).then(() => {
               this.loadSubject.next('DNTDATA_LOAD_EVENT');
-            },
-            function (msg) {
-              t.loaded = true;
+              this.loaded = true;
+            }).catch(() => {
+              this.loaded = true;
+              this.failed = true;
               console.log('ignoring the error - this file may not exist yet for the region');
               this.loadSubject.next('DNTDATA_LOAD_EVENT');
             });
@@ -53,7 +47,7 @@ class DntLoader {
     }
   }
 
-  private reset() {
+  reset() {
     this.reader = new DntReader();
     this.loaded = false;
     this.startedLoading = false;
@@ -64,38 +58,24 @@ class DntLoader {
 export class DntService {
 
   loadSubject: Subject<string> = new Subject();
-  loaders: any = {};
+  loaders: {[fileName: string]: DntLoader} = {};
   findIndexes: any = {};
-  dntLocation: Region = null;
 
-  constructor() {
-  }
-
-  private createLoader(dntLocation, file) {
-    var loader = new DntLoader(this.loadSubject, dntLocation, file);
-
-    return loader;
-  }
-
-  setLocation(location: Region) {
-    this.dntLocation = location;
-    var t = this;
-    for (let key of Object.keys(this.loaders)) {
-      const value = this.loaders[key];
-      if (value.dntLocation != location) {
-        value.dntLocation = location;
-        t.reset(key);
-      }
-    }
+  constructor(
+    private regionService: RegionService
+  ) {
+    regionService.regionChangeSubject.subscribe(() => {
+      this.resetAll();
+    });
   }
 
   init(fileName: string) {
     if (!(fileName in this.loaders)) {
       if (fileName.length > 0) {
-        this.loaders[fileName] = this.createLoader(this.dntLocation, fileName);
+        this.loaders[fileName] = new DntLoader(this.loadSubject, this.regionService.dntLocation, fileName);
       }
     }
-    this.loaders[fileName].init();
+    return this.loaders[fileName].init();
   }
 
   getData(fileName) {
@@ -209,7 +189,7 @@ export class DntService {
     }
   }
 
-  getRow(fileName, index) {
+  getRow(fileName, index): any {
     if (this.isLoaded(fileName)) {
       return this.loaders[fileName].reader.getRow(index);
     }
@@ -241,12 +221,6 @@ export class DntService {
     }
     else {
       return null;
-    }
-  }
-
-  saveMemory() {
-    for (let fileName of Object.keys(this.loaders)) {
-      this.loaders[fileName].saveReaderMemory();
     }
   }
 }

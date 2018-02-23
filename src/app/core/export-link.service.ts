@@ -22,7 +22,7 @@ export class ExportLinkService {
     private translationService: TranslationService
   ) { }
 
-  encodeItem(item: any, small: any) {
+  encodeItem(item: any) {
     if(item) {
       var itemString;
 
@@ -69,10 +69,6 @@ export class ExportLinkService {
         if(item.pve) {
           itemString += ':V' + item.pve;
         }
-      }
-      
-      if(item.name && !small) {
-        itemString += ':.' + item.name.replace(/ /g, '-').replace(/\//g, ' ');
       }
 
       return itemString;
@@ -142,14 +138,13 @@ export class ExportLinkService {
   
   createGroupLink(groupName: any, group: any) {
     var itemStrings = [];
-    var self = this;
     
     if(group == null) {
       return '';
     }
     
     group.items.forEach(item => {
-      var itemString = self.encodeItem(item, true);
+      var itemString = this.encodeItem(item);
       if(itemString && itemString.length) {
         itemStrings.push(itemString);
       }

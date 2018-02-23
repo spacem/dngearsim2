@@ -29,7 +29,7 @@
       <ng-container  *ngIf="!itemCategory.hideRank">
         <div class="col-xs-6 form-group" *ngFor="let r of ranks">
           <label class="checkbox-inline">
-            <input (change)="changeSearch()" type="checkbox" [(ngModel)]="rankChecked[r.id]" value="{{r.id}}"> {{value.name | translate}}
+            <input (change)="changeSearch()" type="checkbox" [(ngModel)]="rankChecked[r.id]" value="{{r.id}}"> {{r.name | translate}}
           </label>
         </div>
       </ng-container>
@@ -68,7 +68,7 @@
         <br />
         <span class="form-group" *ngFor="let r of ranks">
         <label class="checkbox-inline">
-          <input (change)="changeSearch()" type="checkbox" [(ngModel)]="rankChecked[id]" value="{{r.id}}">{{value.name | translate}}&nbsp;
+          <input (change)="changeSearch()" type="checkbox" [(ngModel)]="rankChecked[r.id]" value="{{r.id}}">{{r.name | translate}}&nbsp;
         </label>
         </span>
       </div>
@@ -112,10 +112,10 @@
     </div>
   
     <!-- Search results -->
-    <div class="row" infinite-scroll="showMoreResults()" *ngIf="!itemCategory.searchType && results">
+    <div class="row" infiniteScroll (scrolled)="showMoreResults()" *ngIf="!itemCategory.searchType && results">
       <div class="col-xs-12" *ngFor="let result of results">
         <div class="row dnsim-card">
-          <app-build-item item="result"></app-build-item>
+          <app-build-item [item]="result"></app-build-item>
           <div style="float:right">
               <button class="btn btn-default" (click)="showUse = !showUse">
                 {{'use' | translate}}

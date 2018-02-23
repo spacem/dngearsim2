@@ -12,6 +12,7 @@ const bigFile = 'uistring.lzjson';
 export class TranslationService {
 
   private data: any;
+  private loading: any;
 
   constructor(
     private http: HttpClient,
@@ -21,7 +22,7 @@ export class TranslationService {
 
   init() {
     const url = this.regionService.tLocation.url + '/uistring.lzjson';
-    let observable;
+    let observable: Observable<string>;
     if (sessionStorage.getItem('UIStrings_file') === url) {
       observable = Observable.of(sessionStorage.getItem('UIStrings'));
     } else {
@@ -33,7 +34,7 @@ export class TranslationService {
     });
 
     observable = this.loadingService.subscribe('uistring.lzjson', observable);
-    return observable;
+    return observable.toPromise().then(() => this.loaded = true);
   }
 
   private setupData(data: any) {

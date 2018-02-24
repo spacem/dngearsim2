@@ -1,4 +1,4 @@
-<a class="{{item.rank && item.rank.name}}-grade text-left" [routerLink]="itemLink">
+<a class="{{item.rank ? item.rank.name : ''}}-grade text-left" [routerLink]="itemLink" *ngIf="item">
   <app-item-icon [item]="item" style="float: left;"></app-item-icon>
   <span *ngIf="item.enchantmentNum > 0">
     +{{item.enchantmentNum}}<span *ngIf="item.typeName == 'talisman'">%</span>

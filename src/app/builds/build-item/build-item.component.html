@@ -1,3 +1,30 @@
-<p>
-  build-item works!
-</p>
+<div style="float:right;clear: right" *ngIf="item.itemSource == 'gem'" class="container-fluid">
+    <div [hidden]="!(changingGemSlot)" class="btn-group-vertical" *ngIf="editMode">
+      <button  [ngClass]="{'btn': true, 'btn-default': true, 'disabled': item.gemSlot == gemSlot.id}" (click)="item.gemSlot = gemSlot.id;onChange()" *ngFor="let gemSlot of gemSlots">
+        <span>
+          {{gemSlot.name}}
+        </span>
+      </button>
+    </div>
+  </div>
+  <div style="float:clear">
+    <app-item-link [item]="item"></app-item-link>
+  </div>
+  <div style="float:left;width: 140px">
+    <app-stats [stats]="item.fullStats" [altStats]="item.stats" filter="dps" [brSeparator]="true"></app-stats>
+  </div>
+  <div style="float:left">
+    <app-stats [stats]="item.fullStats" [altStats]="item.stats" filter="def" [brSeparator]="true"></app-stats>
+  </div>
+  <div style="clear: both" *ngIf="editMode" class="container-fluid">
+    <app-item-edit item="item" on-change="onChange()" update-item="updateItem()"></app-item-edit>
+    <br />
+  </div>
+  <div *ngIf="editMode" style="float:right">
+    <button class="btn btn-default" (click)="onChange()">
+      {{'apply' | translate}}
+    </button>
+    <button class="btn btn-default" (click)="cancelEdit()">
+      {{'cancel' | translate}}
+    </button>
+  </div>

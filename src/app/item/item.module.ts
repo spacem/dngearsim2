@@ -48,7 +48,8 @@ import { BuildAssignmentComponent } from './build-assignment/build-assignment.co
     BuildAssignmentComponent
   ],
   exports: [
-    BuildAssignmentComponent
+    BuildAssignmentComponent,
+    ItemEditComponent
   ]
 })
 export class ItemModule { }

@@ -4,10 +4,10 @@
   <div class="row">
     
   <div class="visible-xs-block col-xs-12">
-    <app-category-links on-change="navigate()" cat="itemCategory" collapse="true"></app-category-links>
+    <app-category-links [category]="itemCategory" [collapse]="true"></app-category-links>
   </div>
   <div class="hidden-xs col-sm-4 col-md-3">
-    <app-category-links on-change="navigate()" cat="itemCategory"></app-category-links>
+    <app-category-links [category]="itemCategory"></app-category-links>
   </div>
   
   <div class="col-xs-12 col-sm-8 col-md-9" *ngIf="!itemCategory.searchType">
@@ -16,7 +16,7 @@
     <div class="row visible-xs" *ngIf="!itemCategory.searchType">
       <div
         class="col-xs-12 input-group">
-        <input placeholder="Search" (change)="changeSearch()" type="text" class="form-control" [(ngModel)]="nameSearch" />
+        <input placeholder="Search" (keyup)="changeSearch()" type="text" class="form-control" [(ngModel)]="nameSearch" />
         <span class="input-group-btn">
           <button class="btn btn-default" (click)="filters = !filters">
             <span class="glyphicon glyphicon-filter" aria-hidden="true"></span>
@@ -33,52 +33,52 @@
           </label>
         </div>
       </ng-container>
-      <div class="col-xs-6 col-sm-2" [hidden]="itemCategory.hideLevel">
+      <div class="col-xs-6 col-sm-2" *ngIf="!itemCategory.hideLevel">
         <label>{{'min&nbsp;lvl:' | translate}}
         </label>
-        <input (change)="changeSearch()" type="number" step="any" class="form-control" [(ngModel)]="minLevel" />
+        <input (keyup)="changeSearch()" type="number" step="any" class="form-control" [(ngModel)]="minLevel" />
       </div>
       <div class="col-xs-6 col-sm-2" [hidden]="itemCategory.hideLevel">
         <label>{{'max&nbsp;lvl:' | translate}}
         </label>
-        <input (change)="changeSearch()" type="number" step="any" class="form-control" [(ngModel)]="maxLevel" />
+        <input (keyup)="changeSearch()" type="number" step="any" class="form-control" [(ngModel)]="maxLevel" />
       </div>
       <div [ngClass]="{'col-sm-2': !itemCategory.hideLevel, 'col-sm-3': itemCategory.hideLevel}" class="col-xs-12">
         <label>{{'stat:' | translate}}</label>
         <select (change)="changeSearch()" class="form-control" [(ngModel)]="stat">
-          <option *ngFor="let stat of stats" [ngValue]="stat.id">
-            {{ stat.name | translate }}
+          <option *ngFor="let s of stats" [ngValue]="s">
+            {{ s.name | translate }}
           </option>
         </select>
       </div>
       <div class="col-xs-12 col-sm-3" [hidden]="itemCategory.hideJob">
         <label>{{'class:' | translate}}
         </label>
-        <select (change)="changeSearch()" [(ngModel)]="job" class="form-control">
-          <option *ngFor="let job of jobs" [ngValue]="job.id">
-            {{job.name}}
+        <select (keyup)="changeSearch()" [(ngModel)]="job" class="form-control">
+          <option *ngFor="let j of jobs" [ngValue]="j">
+            {{j.name}}
           </option>
         </select>
       </div>
     </div>
     <!-- For large screens search options -->
     <div class="row hidden-xs" *ngIf="!itemCategory.searchType">
-      <div class="col-xs-0 col-md-2"></div>
+      <div class="col-md-2" *ngIf="!itemCategory.hideRank"></div>
       <div class="hidden-xs col-md-10 form-group" *ngIf="!itemCategory.hideRank">
         <br />
         <span class="form-group" *ngFor="let r of ranks">
         <label class="checkbox-inline">
-          <input (change)="changeSearch()" type="checkbox" [(ngModel)]="rankChecked[r.id]" value="{{r.id}}">{{r.name | translate}}&nbsp;
+          <input (keyup)="changeSearch()" type="checkbox" [(ngModel)]="rankChecked[r.id]" value="{{r.id}}">{{r.name | translate}}&nbsp;
         </label>
         </span>
       </div>
       
-      <div class="col-xs-6 col-sm-2" [hidden]="itemCategory.hideLevel">
+      <div class="col-xs-6 col-sm-2" *ngIf="!itemCategory.hideLevel">
         <label>{{'min&nbsp;lvl:' | translate}}
         </label>
         <input (change)="changeSearch()" type="number" step="any" class="form-control" [(ngModel)]="minLevel" />
       </div>
-      <div class="col-xs-6 col-sm-2" [hidden]="itemCategory.hideLevel">
+      <div class="col-xs-6 col-sm-2" *ngIf="!itemCategory.hideLevel">
         <label>{{'max&nbsp;lvl:' | translate}}
         </label>
         <input (change)="changeSearch()" type="number" step="any" class="form-control" [(ngModel)]="maxLevel" />
@@ -86,17 +86,17 @@
       <div [ngClass]="{'col-sm-2': !itemCategory.hideLevel, 'col-sm-3': itemCategory.hideLevel}" class="col-xs-12">
         <label>{{'stat:' | translate}}</label>
         <select (change)="changeSearch()" class="form-control" [(ngModel)]="stat">
-          <option *ngFor="let stat of stats" [ngValue]="stat.id">
-            {{ stat.name | translate}}
+          <option *ngFor="let s of stats" [ngValue]="s">
+            {{ s.name | translate}}
           </option>
         </select>
       </div>
       
       <div
         class="'col-xs-12"
-        [ngClass]="{'col-sm-3': !itemCategory.hideLevel && !itemCategory.hideJob,'col-sm-6': !itemCategory.hideLevel && itemCategory.hideJob,'col-sm-6': itemCategory.hideLevel && !itemCategory.hideJob,'col-sm-9': itemCategory.hideLevel && itemCategory.hideJob}">
+        [ngClass]="{'col-sm-3': !itemCategory.hideLevel && !itemCategory.hideJob,'col-sm-6': !itemCategory.hideLevel && itemCategory.hideJob,'col-sm-6': itemCategory.hideLevel && !itemCategory.hideJob,'col-sm-8': itemCategory.hideLevel && itemCategory.hideJob}">
         <label>{{'name:' | translate}}</label>
-        <input (change)="changeSearch()" type="text" class="form-control" [(ngModel)]="nameSearch" />
+        <input (keyup)="changeSearch()" type="text" class="form-control" [(ngModel)]="nameSearch" />
         <span class="input-group-btn">
         </span>
       </div>
@@ -104,8 +104,8 @@
         <label>{{'class:' | translate}}
         </label>
         <select (change)="changeSearch()" [(ngModel)]="job" class="form-control">
-        <option *ngFor="let job of jobs" [ngValue]="job.id">
-            {{job.name}}
+        <option *ngFor="let j of jobs" [ngValue]="j">
+            {{j.name}}
         </option>
         </select>
       </div>

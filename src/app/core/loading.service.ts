@@ -31,7 +31,7 @@ export class LoadingService {
   }
 
   subscribe(fileName: string, observable: Observable<string>) {
-    this.loadingFiles.push(fileName);
+    this.addFile(fileName);
 
     observable = observable.catch((err, caught) => {
       this.loadingFiles = this.loadingFiles.filter(f => f !== fileName);
@@ -40,7 +40,15 @@ export class LoadingService {
     });
 
     return observable.do(event => {
-      this.loadingFiles = this.loadingFiles.filter(f => f !== fileName);
+      this.finishFile(fileName);
     });
+  }
+
+  addFile(fileName: string) {
+    this.loadingFiles.push(fileName);
+  }
+
+  finishFile(fileName: string) {
+    this.loadingFiles = this.loadingFiles.filter(f => f !== fileName);
   }
 }

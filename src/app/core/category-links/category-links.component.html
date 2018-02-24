@@ -1,3 +1,12 @@
-<p>
-  category-links works!
-</p>
+<div class="list-group" *ngIf="!isLoading()">
+  <ng-container *ngFor="let c of categories">
+    <button class="list-group-item"
+      (click)="setCategory(c)"
+      [ngClass]="{'active': c == category}"
+      *ngIf="shouldShow(c)">
+        <span class="cat-icon-{{c.name}} cat-icon">
+        </span>
+          {{getName(c)}}
+    </button>
+  </ng-container>
+</div>

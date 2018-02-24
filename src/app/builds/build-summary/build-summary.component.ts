@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-build-summary',
@@ -6,6 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./build-summary.component.scss']
 })
 export class BuildSummaryComponent implements OnInit {
+
+  @Input() buildName: string;
+  @Input() build: any;
 
   constructor() { }
 

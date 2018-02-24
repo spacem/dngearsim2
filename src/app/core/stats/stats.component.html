@@ -1,3 +1,8 @@
-<p>
-  stats works!
-</p>
+<ng-container *ngFor="let s of statDisplay; let i = index">
+  <ng-container>
+    {{s.set}}<strong>{{s.title}}:</strong>&nbsp;{{s.value}}
+  </ng-container>
+  
+  <br *ngIf="brSeparator && i > 0" />
+  <ng-container *ngIf="pipeSeparator && i > 0">|</ng-container>
+</ng-container>

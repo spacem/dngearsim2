@@ -22,12 +22,15 @@ import { QuickAddHelperService } from './quick-add-helper.service';
 import { QuickAddService } from './quick-add.service';
 import { QuickAddStepsService } from './quick-add-steps.service';
 import { ItemModule } from '../item/item.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
     CommonModule,
     BuildsRoutingModule,
-    CoreModule
+    CoreModule,
+    ItemModule,
+    TranslateModule.forChild()
   ],
   declarations: [
     BuildActionsComponent,

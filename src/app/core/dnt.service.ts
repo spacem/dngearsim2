@@ -2,10 +2,12 @@ import { Injectable } from '@angular/core';
 import { DntReader } from './dnt-reader';
 import { Subject } from 'rxjs/Subject';
 import { Region, RegionService } from './region.service';
+import { LoadingService } from './loading.service';
 
 class DntLoader {
 
   constructor(
+    private loadingService: LoadingService,
     private loadSubject: Subject<string>,
     private dntLocation: any,
     private file: string) {
@@ -32,15 +34,18 @@ class DntLoader {
 
           this.loadSubject.next('DNTDATA_LOAD_EVENT');
 
+          this.loadingService.addFile(this.file);
           return this.reader.loadDntFromServerFile(
             this.dntLocation.url + '/' + this.file).then(() => {
               this.loadSubject.next('DNTDATA_LOAD_EVENT');
               this.loaded = true;
+              this.loadingService.finishFile(this.file);
             }).catch(() => {
               this.loaded = true;
               this.failed = true;
               console.log('ignoring the error - this file may not exist yet for the region');
               this.loadSubject.next('DNTDATA_LOAD_EVENT');
+              this.loadingService.finishFile(this.file);
             });
         }
       }
@@ -62,6 +67,7 @@ export class DntService {
   findIndexes: any = {};
 
   constructor(
+    private loadingService: LoadingService,
     private regionService: RegionService
   ) {
     regionService.regionChangeSubject.subscribe(() => {
@@ -69,10 +75,10 @@ export class DntService {
     });
   }
 
-  init(fileName: string) {
+  init(fileName: string): Promise<any> {
     if (!(fileName in this.loaders)) {
       if (fileName.length > 0) {
-        this.loaders[fileName] = new DntLoader(this.loadSubject, this.regionService.dntLocation, fileName);
+        this.loaders[fileName] = new DntLoader(this.loadingService, this.loadSubject, this.regionService.dntLocation, fileName);
       }
     }
     return this.loaders[fileName].init();

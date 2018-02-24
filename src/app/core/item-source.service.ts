@@ -34,7 +34,6 @@ export class ItemSource extends ItemSourceData {
   items = null;
 
   async init() {
-    console.log('init source');
     this.loading = true;
     const p: Promise<any>[] = [
       this.translationService.init(),

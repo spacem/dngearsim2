@@ -58,8 +58,8 @@ export class SearchComponent implements OnInit {
       this.itemCategoryService.init(this.itemCategory.name)]);
 
     this.jobInit();
-    this.loadResults();
     this.setup();
+    this.loadResults();
 
     this.route.paramMap.subscribe(params => {
       this.itemCategory = this.itemCategoryService.byName(params.get('category'));
@@ -225,6 +225,7 @@ export class SearchComponent implements OnInit {
   loadResults() {
     this.maxDisplay = 24;
     this.results = this.getResults();
+    console.log('loaded results');
   }
   
   getResults() {

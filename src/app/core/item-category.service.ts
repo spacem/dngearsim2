@@ -140,7 +140,6 @@ export class ItemCategoryService {
   }
 
   async init(name: string) {
-    console.log('init source ', name);
     var cat = this.byName(name);
     if (cat && 'sourceType' in cat) {
       var sources = Object.values(this.itemSourceService.sources).filter(source => {

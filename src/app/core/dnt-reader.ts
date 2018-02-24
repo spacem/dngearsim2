@@ -49,7 +49,6 @@ export class DntReader implements DntData {
     loadDntFromServerFileImpl(fileName) {
 
       return new Promise((resolve, reject) => {
-        console.log("about to load");
         var isLzJson = (fileName.toUpperCase().lastIndexOf(".LZJSON") == fileName.length-7);
         var isJson = (fileName.toUpperCase().lastIndexOf(".JSON") == fileName.length-5);
         

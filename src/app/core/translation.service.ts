@@ -20,20 +20,24 @@ export class TranslationService {
     private loadingService: LoadingService
   ) {}
 
-  init() {
+  init(): Promise<any> {
+    if(this.loaded) {
+      return Promise.resolve();
+    }
+
     const url = this.regionService.tLocation.url + '/uistring.lzjson';
     let observable: Observable<string>;
     if (sessionStorage.getItem('UIStrings_file') === url) {
       observable = Observable.of(sessionStorage.getItem('UIStrings'));
     } else {
       observable = this.http.get(url, { responseType: 'text' });
+      observable = this.loadingService.subscribe('uistring.lzjson', observable);
     }
     observable = observable.do(data => {
       sessionStorage.setItem('UIStrings', data);
       this.setupData(data);
     });
 
-    observable = this.loadingService.subscribe('uistring.lzjson', observable);
     return observable.toPromise().then(() => this.loaded = true);
   }
 

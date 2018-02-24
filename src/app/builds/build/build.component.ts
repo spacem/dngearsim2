@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-build',
@@ -6,6 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./build.component.scss']
 })
 export class BuildComponent implements OnInit {
+
+  @Input() buildName: string;
+  @Input() build: any;
+  @Output() buildChange = new EventEmitter();
 
   constructor() { }
 

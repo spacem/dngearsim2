@@ -93,8 +93,8 @@
       </div>
       
       <div
-        class="'col-xs-12"
-        [ngClass]="{'col-sm-3': !itemCategory.hideLevel && !itemCategory.hideJob,'col-sm-6': !itemCategory.hideLevel && itemCategory.hideJob,'col-sm-6': itemCategory.hideLevel && !itemCategory.hideJob,'col-sm-8': itemCategory.hideLevel && itemCategory.hideJob}">
+        class="col-xs-12"
+        [ngClass]="{'col-sm-9': getNameSize() == 'large', 'col-sm-6': getNameSize() == 'medium', 'col-sm-3': getNameSize() == 'small'}">
         <label>{{'name:' | translate}}</label>
         <input (keyup)="changeSearch()" type="text" class="form-control" [(ngModel)]="nameSearch" />
         <span class="input-group-btn">

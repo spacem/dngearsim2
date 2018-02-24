@@ -18,15 +18,6 @@ export class BuildItemComponent implements OnInit {
 
   ngOnInit() {
   }
-
-  getBuildNames() {
-    if(this.builds) {
-      return Object.keys(this.builds);
-    }
-    else {
-      return [];
-    }
-  }
   
   getGemSlotName(item) {
     if(item.gemSlot) {

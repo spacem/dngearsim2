@@ -6,9 +6,10 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build --prod",
-    "test": "ng test",
+    "tdd": "ng test -sm false",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "test": "ng test -sm=false --browsers=PhantomJS --watch=false --progress=false"
   },
   "engines": {
     "node": "8.9.4",

@@ -6,15 +6,17 @@ import { DeleteBuildComponent } from './delete-build/delete-build.component';
 import { BuildExportActionComponent } from './build-export-action/build-export-action.component';
 import { BuildTalismansComponent } from './build-talismans/build-talismans.component';
 import { BuildImportComponent } from './build-import/build-import.component';
+import { BuildListComponent } from './build-list/build-list.component';
 
 const routes: Routes = [
-  { path: '', component: BuildComponent },
+  { path: '', component: BuildListComponent },
   { path: 'edit-build', component: EditBuildComponent },
   { path: 'new-build', component: EditBuildComponent },
   { path: 'delete-build', component: DeleteBuildComponent },
   { path: 'export', component: BuildExportActionComponent },
   { path: 'talismans', component: BuildTalismansComponent },
   { path: 'import', component: BuildImportComponent },
+  { path: ':buildName', component: BuildComponent },
 ];
 
 @NgModule({

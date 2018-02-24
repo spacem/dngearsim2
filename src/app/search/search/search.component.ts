@@ -359,6 +359,21 @@ export class SearchComponent implements OnInit {
     return newResults;
   }
 
+  getNameSize() {
+    if(this.itemCategory.hideJob && this.itemCategory.hideLevel) {
+      return 'large';
+    }
+    if(this.itemCategory.hideJob || this.itemCategory.hideLevel) {
+      return 'medium';
+    }
+    else if(!this.itemCategory.hideJob && !this.itemCategory.hideLevel) {
+      return 'small';
+    }
+    else {
+      return 'full';
+    }
+  }
+
   showMoreResults() {
     this.maxDisplay += 18;
     this.results = this.getResults();

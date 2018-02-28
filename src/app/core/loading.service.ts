@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class LoadingService {
 
   loadingFiles: string[] = [];
   errors: string[] = [];
+  loadingSubject = new Subject<string>();
 
   constructor() {
   }
@@ -46,9 +48,11 @@ export class LoadingService {
 
   addFile(fileName: string) {
     this.loadingFiles.push(fileName);
+    this.loadingSubject.next(this.getLoadingString());
   }
 
   finishFile(fileName: string) {
     this.loadingFiles = this.loadingFiles.filter(f => f !== fileName);
+    this.loadingSubject.next(this.getLoadingString());
   }
 }

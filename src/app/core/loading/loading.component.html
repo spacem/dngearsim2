@@ -1,7 +1,7 @@
 <div class="col-xs-12 loading" *ngIf="loadingService.isLoading()">
 </div>
 <p *ngIf="loadingService.isLoading()" class="text-right">
-  <em>{{ loadingService.getLoadingString() }};</em>
+  <em>{{ message }};</em>
 </p>
 <p *ngIf="loadingService.hadError()">
 <button class="btn btn-link" (click)="loadingService.clearErrors();">ignore error</button>

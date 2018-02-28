@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RegionService } from '../../core/region.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslationService } from '../../core/translation.service';
@@ -6,14 +6,16 @@ import { ItemCategoryService } from '../../core/item-category.service';
 import { ValuesService } from '../../core/values.service';
 import { JobService } from '../../core/job.service';
 import { ItemFactoryService } from '../../core/item-factory.service';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss']
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent implements OnInit, OnDestroy {
   
+  paramSubscription: Subscription;
   origJobNumber: number;
   rankChecked: any = { 0: true, 1: true, 2: true, 3: true, 4: true, 5: true };
   nameSearch = '';
@@ -61,11 +63,19 @@ export class SearchComponent implements OnInit {
     this.setup();
     this.loadResults();
 
-    this.route.paramMap.subscribe(params => {
+    this.paramSubscription = this.route.paramMap.subscribe(params => {
+      console.log('cat change');
       this.itemCategory = this.itemCategoryService.byName(params.get('category'));
-      this.itemCategoryService.init(this.itemCategory.name);
-      this.loadResults();
+      this.itemCategoryService.init(this.itemCategory.name).then(() => {
+        this.loadResults();
+      });
     });
+  }
+
+  ngOnDestroy() {
+    if(this.paramSubscription) {
+      this.paramSubscription.unsubscribe();
+    }
   }
 
   setup() {

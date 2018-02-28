@@ -1,3 +1,37 @@
-<p>
-  skill-search works!
-</p>
+<div class="row">
+  <div class="col-xs-12">&nbsp;</div>
+</div>
+<div class="row">
+<div class="col-xs-12">
+  <p>
+     Skills are still under development.
+  </p>
+  <p>
+   Skills that debuf may debuf you instead of your enemy ie. might decrease your defence instead of increasing your attack.
+  </p>
+</div>
+</div>
+<div class="row">
+  
+  <div class="col-xs-12 col-md-9">
+     <label>name:</label>
+     <input type="text" class="form-control" [(ngModel)]="nameSearch" />
+  </div>
+  <div class="col-xs-12 col-md-3" [hidden]="simpleSearch">
+    <label>class: 
+    </label>
+    <select [(ngModel)]="job" class="form-control" (change)="getSkills()">
+      <option *ngFor="let j of jobs" [ngValue]="j">
+        {{ j.name }}
+      </option>
+    </select>
+  </div>
+</div>
+<app-loading>
+  <div class="row">
+    <div class="col-xs-12">&nbsp;</div>
+    <div class="col-xs-12 dnsim-card" *ngFor="let result of getResults()">
+      <app-item-link [item]="result"></app-item-link>
+    </div>
+  </div>
+</app-loading>

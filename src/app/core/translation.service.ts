@@ -18,10 +18,10 @@ export class TranslationService {
     private http: HttpClient,
     private regionService: RegionService,
     private loadingService: LoadingService
-  ) {}
+  ) { }
 
   init(): Promise<any> {
-    if(this.loaded) {
+    if (this.loaded) {
       return Promise.resolve();
     }
 
@@ -49,14 +49,14 @@ export class TranslationService {
   getRawData() {
     return this.data;
   }
-  
+
   reset() {
     this.loaded = false;
     this.startedLoading = false;
   }
-  
+
   getFileName() {
-    if(this.small) {
+    if (this.small) {
       // console.log('loading optimised this.translationService');
       return smallFile;
     }
@@ -65,34 +65,34 @@ export class TranslationService {
       return bigFile;
     }
   }
-  
+
   loaded = false;
   startedLoading = false;
   small = false;
-  
+
   location: any = null;
   region: any = null;
-  
+
   isLoaded() {
-    if(!this.loaded) {
+    if (!this.loaded) {
       var fileName = this.location + '/' + this.getFileName();
-      
-      if(fileName != localStorage.getItem("UIStrings_file")) {
+
+      if (fileName != localStorage.getItem("UIStrings_file")) {
         sessionStorage.removeItem('UIStrings');
         localStorage.removeItem('UIStrings_file');
       }
-/*
-      this.loaded = dnTranslations.loadFromSession();
-      if(this.loaded) {
-        uiTranslations.addTranslations(this.region, this.getRawData());
-        $translate.use(this.region);
-        this.startedLoading = true;
-      }
-*/
+      /*
+            this.loaded = dnTranslations.loadFromSession();
+            if(this.loaded) {
+              uiTranslations.addTranslations(this.region, this.getRawData());
+              $translate.use(this.region);
+              this.startedLoading = true;
+            }
+      */
     }
     return this.loaded;
   }
-  
+
   translate(id: string, idParam?: string) {
     return this.fullTranslate(id, idParam);
   }

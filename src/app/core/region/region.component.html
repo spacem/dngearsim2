@@ -20,7 +20,6 @@
     </div>
     <div class="row" *ngFor="let currentLocation of getHostedFiles()">
       <a
-        routerLink="."
         class="region-hover"
         (click)="setLocation(currentLocation)"
         (mouseover)="hoverLocation = currentLocation"
@@ -78,7 +77,6 @@
     <ng-container *ngIf="override">
       <div class="row" *ngFor="let currentLocation of getHostedFiles()">
         <a
-          routerLink="#"
           class="region-hover"
           (click)="setTLocation(currentLocation)"
           (mouseover)="tHoverLocation = currentLocation"

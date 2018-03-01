@@ -16,6 +16,7 @@ import { Subscription } from 'rxjs/Subscription';
 export class SearchComponent implements OnInit, OnDestroy {
   
   paramSubscription: Subscription;
+  regionSubscription: Subscription;
   origJobNumber: number;
   rankChecked: any = { 0: true, 1: true, 2: true, 3: true, 4: true, 5: true };
   nameSearch = '';
@@ -48,6 +49,10 @@ export class SearchComponent implements OnInit, OnDestroy {
   }
 
   async ngOnInit() {
+    this.regionSubscription = this.regionService.regionChangeSubject.subscribe(() => {
+      this.router.navigate(['/', this.regionService.dntLocation.region, 'search', this.itemCategory.name]);
+    });
+
     this.itemCategory = this.itemCategoryService.byName(this.route.snapshot.paramMap.get('category'));
     // console.log('got category', this.itemCategory);
     if(this.itemCategory) {
@@ -77,6 +82,10 @@ export class SearchComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     if(this.paramSubscription) {
       this.paramSubscription.unsubscribe();
+    }
+
+    if(this.regionSubscription) {
+      this.regionSubscription.unsubscribe();
     }
   }
 

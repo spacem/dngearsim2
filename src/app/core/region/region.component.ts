@@ -72,18 +72,8 @@ export class RegionComponent implements OnInit {
     if(!this.override) {
       this.setTLocation(null);
     }
-    
-    /*
-    if(!this.route.snapshot.paramMap.get('region')) {
-      $routeParams.region = location.region;
-      $route.updateParams($routeParams);
-      $route.reload();
-    }
-    else {
-      this.regionService.setLocation(location);
-    }
-    */
 
+    this.regionService.setLocation(location);
     this.edit = false;
     this.setDntVersion();
   }

@@ -5,15 +5,12 @@ import { NavComponent } from './nav/nav.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { CoreModule } from './core/core.module';
+import { TestingModule } from './testing/testing.module';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule,
-        TranslateModule.forRoot(),
-        CoreModule
-      ],
+      imports: [ TestingModule ],
       declarations: [
         AppComponent,
         HeaderComponent,

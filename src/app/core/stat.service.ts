@@ -383,6 +383,7 @@ export class StatService {
   getNakedStats(group) {
 
     if (
+      group &&
       group.baseStats &&
       group.baseStats.Strength > 0) {
 

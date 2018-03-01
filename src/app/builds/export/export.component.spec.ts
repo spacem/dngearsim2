@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ExportComponent } from './export.component';
+import { TestingModule } from '../../testing/testing.module';
 
 describe('ExportComponent', () => {
   let component: ExportComponent;
@@ -8,6 +9,7 @@ describe('ExportComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [ TestingModule ],
       declarations: [ ExportComponent ]
     })
     .compileComponents();

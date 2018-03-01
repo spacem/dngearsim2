@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ItemEditSparkComponent } from './item-edit-spark.component';
+import { TestingModule } from '../../testing/testing.module';
 
 describe('ItemEditSparkComponent', () => {
   let component: ItemEditSparkComponent;
@@ -8,6 +9,7 @@ describe('ItemEditSparkComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [ TestingModule ],
       declarations: [ ItemEditSparkComponent ]
     })
     .compileComponents();

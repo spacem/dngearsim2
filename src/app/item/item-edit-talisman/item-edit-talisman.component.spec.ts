@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ItemEditTalismanComponent } from './item-edit-talisman.component';
+import { TestingModule } from '../../testing/testing.module';
 
 describe('ItemEditTalismanComponent', () => {
   let component: ItemEditTalismanComponent;
@@ -8,6 +9,7 @@ describe('ItemEditTalismanComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [ TestingModule ],
       declarations: [ ItemEditTalismanComponent ]
     })
     .compileComponents();

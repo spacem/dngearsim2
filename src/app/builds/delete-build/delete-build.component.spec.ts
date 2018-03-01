@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DeleteBuildComponent } from './delete-build.component';
+import { TestingModule } from '../../testing/testing.module';
 
 describe('DeleteBuildComponent', () => {
   let component: DeleteBuildComponent;
@@ -8,6 +9,7 @@ describe('DeleteBuildComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [ TestingModule ],
       declarations: [ DeleteBuildComponent ]
     })
     .compileComponents();

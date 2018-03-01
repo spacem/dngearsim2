@@ -49,7 +49,7 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   async ngOnInit() {
     this.itemCategory = this.itemCategoryService.byName(this.route.snapshot.paramMap.get('category'));
-    console.log('got category', this.itemCategory);
+    // console.log('got category', this.itemCategory);
     if(this.itemCategory) {
       this.save();
     }
@@ -64,11 +64,13 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.loadResults();
 
     this.paramSubscription = this.route.paramMap.subscribe(params => {
-      console.log('cat change');
+      // console.log('cat change');
       this.itemCategory = this.itemCategoryService.byName(params.get('category'));
-      this.itemCategoryService.init(this.itemCategory.name).then(() => {
-        this.loadResults();
-      });
+      if(this.itemCategory) {
+        this.itemCategoryService.init(this.itemCategory.name).then(() => {
+          this.loadResults();
+        });
+      }
     });
   }
 
@@ -235,13 +237,13 @@ export class SearchComponent implements OnInit, OnDestroy {
   loadResults() {
     this.maxDisplay = 24;
     this.results = this.getResults();
-    console.log('loaded results');
+    //console.log('loaded results');
   }
   
   getResults() {
     var allItems = this.itemCategoryService.getItems(this.itemCategory.name);
     if(allItems == null) {
-      console.log('no items in cat');
+      //console.log('no items in cat');
       return null;
     }
     

@@ -1,4 +1,4 @@
-<span *ngIf="item.d.JobIcon"
+<span *ngIf="item && item.d && item.d.JobIcon"
   class="job-icon"
   [ngClass]="{'job-icon-small': small}"
   [ngStyle]="{'background': 'url(images/icons/jobicon_main.png)', 'background-position': '-' + getIconXPostion() + 'px -' + getIconYPostion() + 'px', 'background-size': sizeValue}">&nbsp;

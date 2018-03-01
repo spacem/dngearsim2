@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ReloadBuildComponent } from './reload-build.component';
+import { TestingModule } from '../../testing/testing.module';
 
 describe('ReloadBuildComponent', () => {
   let component: ReloadBuildComponent;
@@ -8,6 +9,7 @@ describe('ReloadBuildComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [ TestingModule ],
       declarations: [ ReloadBuildComponent ]
     })
     .compileComponents();

@@ -11,19 +11,18 @@ import { ValuesService } from '../../core/values.service';
 import { RegionService } from '../../core/region.service';
 import { ExportLinkService } from '../../core/export-link.service';
 import { ItemSourceService } from '../../core/item-source.service';
+import { TestingModule } from '../../testing/testing.module';
 
-fdescribe('BuildItemComponent', () => {
+describe('BuildItemComponent', () => {
   let component: BuildItemComponent;
   let fixture: ComponentFixture<BuildItemComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        TranslateModule,
-        RouterTestingModule
+        TestingModule
       ],
-      declarations: [ BuildItemComponent, ItemLinkComponent, StatsComponent, ItemEditComponent, ItemIconComponent ],
-      providers: [ValuesService, RegionService, ExportLinkService, ItemSourceService, TranslateService]
+      declarations: [ BuildItemComponent ],
     })
     .compileComponents();
   }));
@@ -31,6 +30,7 @@ fdescribe('BuildItemComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(BuildItemComponent);
     component = fixture.componentInstance;
+    component.item = {};
     fixture.detectChanges();
   });
 

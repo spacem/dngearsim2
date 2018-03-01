@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ItemViewExtractionComponent } from './item-view-extraction.component';
+import { TestingModule } from '../../testing/testing.module';
 
 describe('ItemViewExtractionComponent', () => {
   let component: ItemViewExtractionComponent;
@@ -8,6 +9,7 @@ describe('ItemViewExtractionComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [ TestingModule ],
       declarations: [ ItemViewExtractionComponent ]
     })
     .compileComponents();

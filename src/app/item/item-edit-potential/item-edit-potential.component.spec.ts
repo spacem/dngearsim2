@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ItemEditPotentialComponent } from './item-edit-potential.component';
+import { TestingModule } from '../../testing/testing.module';
 
 describe('ItemEditPotentialComponent', () => {
   let component: ItemEditPotentialComponent;
@@ -8,6 +9,7 @@ describe('ItemEditPotentialComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [ TestingModule ],
       declarations: [ ItemEditPotentialComponent ]
     })
     .compileComponents();

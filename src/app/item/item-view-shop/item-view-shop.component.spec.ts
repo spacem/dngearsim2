@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ItemViewShopComponent } from './item-view-shop.component';
+import { TestingModule } from '../../testing/testing.module';
 
 describe('ItemViewShopComponent', () => {
   let component: ItemViewShopComponent;
@@ -8,6 +9,7 @@ describe('ItemViewShopComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [ TestingModule ],
       declarations: [ ItemViewShopComponent ]
     })
     .compileComponents();

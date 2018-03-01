@@ -21,8 +21,7 @@ export class JobIconComponent implements OnInit {
       this.sizeValue = '205px 205px';
       this.iconSize = 22;
       this.iconOffset = 0;
-    }
-    else {
+    } else {
       this.sizeValue = '410px 410px';
       this.iconSize = 44;
       this.iconOffset = 5;

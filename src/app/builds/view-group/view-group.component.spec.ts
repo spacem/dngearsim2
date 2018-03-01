@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ViewGroupComponent } from './view-group.component';
+import { TestingModule } from '../../testing/testing.module';
 
 describe('ViewGroupComponent', () => {
   let component: ViewGroupComponent;
@@ -8,6 +9,7 @@ describe('ViewGroupComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [ TestingModule ],
       declarations: [ ViewGroupComponent ]
     })
     .compileComponents();

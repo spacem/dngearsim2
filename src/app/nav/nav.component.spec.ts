@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NavComponent } from './nav.component';
+import { TestingModule } from '../testing/testing.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('NavComponent', () => {
   let component: NavComponent;
@@ -8,6 +10,7 @@ describe('NavComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [ TestingModule, TranslateModule.forChild() ],
       declarations: [ NavComponent ]
     })
     .compileComponents();

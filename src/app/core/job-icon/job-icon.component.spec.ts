@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { JobIconComponent } from './job-icon.component';
+import { TestingModule } from '../../testing/testing.module';
 
 describe('JobIconComponent', () => {
   let component: JobIconComponent;
@@ -8,6 +9,7 @@ describe('JobIconComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [ TestingModule ],
       declarations: [ JobIconComponent ]
     })
     .compileComponents();

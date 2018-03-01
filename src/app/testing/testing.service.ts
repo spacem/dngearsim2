@@ -17,7 +17,7 @@ export class ItemFactoryServiceStub {
 @Injectable()
 export class RegionServiceStub {
   regionChangeSubject = new Subject();
-  dntLocation = {};
+  dntLocation = null;
   getOverride() {
   }
   async init() {

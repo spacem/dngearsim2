@@ -50,7 +50,9 @@ export class NavComponent implements OnInit, OnDestroy {
   }
 
   setupActions() {
-    this.searchAction.path = this.regionService.dntLocation.region + '/search';
+    if(this.regionService.dntLocation) {
+      this.searchAction.path = this.regionService.dntLocation.region + '/search';
+    }
   }
 
   isSearch() {

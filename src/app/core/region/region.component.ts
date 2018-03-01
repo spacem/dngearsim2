@@ -25,10 +25,16 @@ export class RegionComponent implements OnInit {
   hoverLocation = this.regionService.dntLocation;
   edit = (this.regionService.dntLocation == null);
   dntVersion = '';
+  dntLocation: any;
 
-  ngOnInit() {
-    this.regionService.init();
+  async ngOnInit() {
+    await this.regionService.init();
     this.setDntVersion();
+
+    this.dntLocation = this.regionService.dntLocation;
+    this.regionService.regionChangeSubject.subscribe(r => {
+      this.dntLocation = this.regionService.dntLocation;
+    });
   }
   
   setDntVersion() {
@@ -48,10 +54,7 @@ export class RegionComponent implements OnInit {
     }
   }
   
-  getDntLocation() {
-    return this.regionService.dntLocation;
-  }
-  getTlocation() {
+    getTlocation() {
     return this.regionService.tLocation;
   }
    

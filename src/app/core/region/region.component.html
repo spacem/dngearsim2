@@ -1,9 +1,9 @@
 <div class="toggle-box">
-  <button 
+  <button *ngIf="dntLocation"
     class="light-toggle toggle-box-button"
     (click)="edit = !edit;"
-    title="{{getDntLocation().name}}">
-    {{getDntLocation().region}}
+    title="{{dntLocation.name}}">
+    {{dntLocation.region}}
   </button>
   <span>
     &nbsp;{{dntVersion}}
@@ -20,11 +20,11 @@
     </div>
     <div class="row" *ngFor="let currentLocation of getHostedFiles()">
       <a
-        routerLink="#"
+        routerLink="."
         class="region-hover"
         (click)="setLocation(currentLocation)"
         (mouseover)="hoverLocation = currentLocation"
-        (mouseleave)="hoverLocation = getDntLocation()">
+        (mouseleave)="hoverLocation = dntLocation">
         
         <div class="col-xs-10 col-sm-11 text-right toggle-text">
           {{currentLocation.name}}

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, SkipSelf, Optional } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ChooseClassComponent } from './choose-class/choose-class.component';
 import { CategoryLinksComponent } from './category-links/category-links.component';
@@ -25,6 +25,7 @@ import { SaveService } from './save.service';
 import { ValuesService } from './values.service';
 import { RouterModule } from '@angular/router';
 import { StatService } from './stat.service';
+import { ModuleWithProviders } from '@angular/compiler/src/core';
 
 @NgModule({
   imports: [
@@ -43,23 +44,6 @@ import { StatService } from './stat.service';
     StatsComponent,
     RegionComponent
   ],
-  providers: [
-    TranslationService,
-    RegionService,
-    DntService,
-    DntInitService,
-    DntResetService,
-    ExportLinkService,
-    ItemCategoryService,
-    ItemSourceService,
-    ItemFactoryService,
-    JobService,
-    LoadingService,
-    SaveService,
-    ValuesService,
-    LoadingService,
-    StatService
-  ],
   declarations: [
     ChooseClassComponent,
     CategoryLinksComponent,
@@ -70,4 +54,27 @@ import { StatService } from './stat.service';
     StatsComponent,
     RegionComponent]
 })
-export class CoreModule { }
+export class CoreModule {
+  static forRoot(): ModuleWithProviders {
+    return {
+      ngModule: CoreModule,
+      providers: [
+        TranslationService,
+        RegionService,
+        DntService,
+        DntInitService,
+        DntResetService,
+        ExportLinkService,
+        ItemCategoryService,
+        ItemSourceService,
+        ItemFactoryService,
+        JobService,
+        LoadingService,
+        SaveService,
+        ValuesService,
+        LoadingService,
+        StatService
+      ],
+    };
+  }
+}

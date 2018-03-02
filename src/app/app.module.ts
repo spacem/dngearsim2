@@ -24,9 +24,9 @@ import { WelcomeComponent } from './welcome/welcome.component';
   ],
   imports: [
     TranslateModule.forRoot(),
+    CoreModule.forRoot(),
     BrowserModule,
-    AppRoutingModule,
-    CoreModule
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

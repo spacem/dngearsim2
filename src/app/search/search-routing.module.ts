@@ -4,7 +4,7 @@ import { EverythingSearchComponent } from './everything-search/everything-search
 import { SearchComponent } from './search/search.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'everything' },
+  { path: '', redirectTo: 'titles' },
   { path: ':category', component: SearchComponent },
 ];
 

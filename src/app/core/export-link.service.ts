@@ -388,6 +388,9 @@ export class ExportLinkService {
       if(ds.length) {
         return this.reloadSourceItem(item);
       }
+      else {
+        throw new Error('cannot find item from id ' + item.id + ' in ' + itemType.mainDnt);
+      }
     }
     
     if(item.fileName) {
@@ -412,6 +415,10 @@ export class ExportLinkService {
     else {
       return {name: 'unknown item source: ' + item.itemSource};
     }
+  }
+
+  getDntFileList(item: any) {
+    return Object.keys(this.getDntFiles(item));
   }
   
   getDntFiles(item: any) {

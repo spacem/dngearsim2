@@ -1,3 +1,157 @@
-<p>
-  item works!
-</p>
+<app-loading>
+  <div class="row" *ngIf="item">
+    <div class="col-xs-12 col-md-5">
+      <h4>
+        <app-item-link [item]="item"></app-item-link><br />
+  
+        <small>
+        <span *ngIf="item.rank && item.rank.id > 0" class="{{item.rank.name}}-grade">
+        {{item.rank.name | translate}}
+        </span>
+        <span *ngIf="jobName">
+        {{jobName.toLowerCase()}}
+        </span>
+        {{getExchangeType()}}
+        <br />
+  
+        <span *ngIf="getSellingPrice().length && moreInfoLoaded()">
+        selling price: {{getSellingPrice()}}
+        <br />
+        </span>
+        <span *ngIf="getServerStorage().length && moreInfoLoaded()">
+        {{getServerStorage()}}
+        <br />
+        </span>
+        <span *ngIf="getMoreInfo().length && moreInfoLoaded()">
+        {{getMoreInfo()}}
+        <br />
+        </span>
+        <span *ngIf="item.typeName != 'custom' && !moreInfoLoaded() && item.fileName">
+          <button class="btn btn-link" (click)="loadMoreInfo()">
+            &raquo;more info
+          </button>
+          <br />
+        </span>
+        <span *ngIf="(item.offensiveGemSlots > 0 || item.increasingGemSlots > 0) && moreInfoLoaded()">
+          gem slots:
+          <span *ngIf="item.offensiveGemSlots > 0">
+            {{item.offensiveGemSlots}} {{'offensive' | translate}}
+            <span *ngIf="item.increasingGemSlots > 0"> | </span>
+          </span>
+          <span *ngIf="item.increasingGemSlots > 0">{{item.increasingGemSlots}} {{'increasing' | translate}}</span>
+        </span>
+        </small>
+      </h4>
+      <small class="hidden-xs" *ngIf="item.typeName != 'custom'">
+        {{item.fileName}} {{item.typeName}}: {{item.itemSource}} / {{item.id}} / {{item.pid}}
+        <span *ngIf="item.potentialRatio != null">
+          <br />
+          potential&nbsp;ratio:&nbsp;{{item.potentialRatio}}
+        </span>
+      </small>
+      <app-item-edit-potential item="item" on-change="handleChange()">
+      </app-item-edit-potential>
+    </div>
+    <div class="col-xs-12 col-md-7">
+      <div class="row" *ngIf="item.typeName != 'custom' && item.typeName != 'skills' && item.typeName != 'talisman'">
+        <!-- virtical layout -->
+        <div class="col-xs-12 col-md-5" *ngIf="item.stats != null && item.stats.length > 0">
+          <label>stats</label><br />
+          <div style="float:left;width: 140px">
+            <app-stats [stats]="item.stats" filter="dps" brSeparator="true"></app-stats>
+          </div>
+          <div style="float:left">
+            <app-stats [stats]="item.stats" filter="def" brSeparator="true"></app-stats>
+          </div>
+        </div>
+        <div class="col-xs-12 col-md-4" *ngIf="item.enchantmentStats && item.enchantmentStats.length > 0">
+          <label>+{{item.enchantmentNum}} stats</label><br />
+          <app-stats [stats]="item.enchantmentStats">
+          </app-stats>
+          <br />
+        </div>
+        <div class="col-xs-12 col-md-3" *ngIf="item.setStats != null && item.setStats.length > 0">
+          <label>set stats</label><br />
+          <app-stats stats="item.setStats" num-of-set="getNumInSet()"></app-stats>
+          <br />
+        </div>
+      </div>
+      <app-item-edit item="item" on-change="handleChange()" update-item="handleChange()">
+      </app-item-edit>
+    </div>
+  </div>
+  <div class="row" *ngIf="item != null">
+    <div class="col-xs-12">
+      {{getDescription()}}
+    </div>
+  </div>
+  <div class="col-xs-12">
+    <br />
+  </div>
+  <div class="row" *ngIf="item != null">
+    <div class="col-xs-12 item-type-grouping">
+      |
+      <span *ngIf="hasContents">
+        <button class="btn btn-link" (click)="setDetail('contents')" [disabled]="detail == 'contents'">contents</button> |
+      </span>
+      <span *ngIf="canUse">
+        <button class="btn btn-link" (click)="setDetail('use')" [disabled]="detail == 'use'">use</button> |
+      </span>
+      <span *ngIf="isPlate">
+        <button class="btn btn-link" (click)="setDetail('plate')" [disabled]="detail == 'plate'">plate</button> |
+      </span>
+      <span *ngIf="canExtract">
+        <button class="btn btn-link" (click)="setDetail('extract')" [disabled]="detail == 'extract'">extract</button> |
+      </span>
+      <span *ngIf="canTransfer">
+        <button class="btn btn-link" (click)="setDetail('transfer')" [disabled]="detail == 'transfer'">transfer</button> |
+      </span>
+      <span *ngIf="canTune">
+        <button class="btn btn-link" (click)="setDetail('tuning')" [disabled]="detail == 'tuning'">convert</button> |
+      </span>
+      <span *ngIf="isInSet">
+        <button class="btn btn-link" (click)="setDetail('set')" [disabled]="detail == 'set'">set</button> |
+      </span>
+      <span>
+        <button class="btn btn-link" (click)="setDetail('attainment')" [disabled]="detail == 'attainment'">attainment</button> |
+      </span>
+    </div>
+  </div>
+  <div class="row" *ngIf="detail == 'extract' && item != null">
+    <app-item-view-extraction item="item">
+    </app-item-view-extraction>
+  </div>
+  <div class="row" *ngIf="detail == 'contents' && item != null">
+    <app-item-view-box item="item">
+    </app-item-view-box>
+  </div>
+  <div class="row" *ngIf="detail == 'use'">
+      <app-build-assignment item="item" *ngIf="item != null && getBuildName()" group-name="getBuildName()" on-change="handleChange()">
+      </app-build-assignment>
+  </div>
+  <div class="row" *ngIf="detail == 'transfer' && item != null">
+    <app-item-view-transfer item="item">
+    </app-item-view-transfer>
+  </div>
+  <div class="row" *ngIf="detail == 'tuning' && item != null">
+    <app-item-view-tuning item="item">
+    </app-item-view-tuning>
+  </div>
+  <div class="row" *ngIf="detail == 'attainment' && item != null">
+    <app-item-view-attainment item="item">
+    </app-item-view-attainment>
+    <app-item-view-shop item="item">
+    </app-item-view-shop>
+    <app-item-view-craft item="item">
+    </app-item-view-craft>
+  </div>
+  <div class="row" *ngIf="detail == 'set' && item != null">
+    <app-item-view-set item="item">
+    </app-item-view-set>
+  </div>
+  <div class="row" *ngIf="detail == 'plate' && item != null">
+    <app-item-view-plate item="item">
+    </app-item-view-plate>
+  </div>
+  </app-loading>
+  

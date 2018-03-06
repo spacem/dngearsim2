@@ -150,6 +150,9 @@ export class DntService {
         return [];
       }
     }
+    else {
+      console.log('cannot find fast - not loaded');
+    }
 
     return [];
   }

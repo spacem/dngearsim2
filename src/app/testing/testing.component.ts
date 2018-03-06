@@ -72,3 +72,43 @@ export class StubCustomItemsComponent {
 @Component({ selector: 'app-everything-search', template: '' })
 export class StubEverythingSearchComponent {
 }
+
+@Component({ selector: 'app-item-edit-potential', template: '' })
+export class StubItemEditPotentialComponent {
+}
+
+@Component({ selector: 'app-item-view-craft', template: '' })
+export class StubItemViewCraftComponent {
+}
+
+@Component({ selector: 'app-item-view-set', template: '' })
+export class StubItemViewSetComponent {
+}
+
+@Component({ selector: 'app-item-view-attainment', template: '' })
+export class StubItemViewAttainmentComponent {
+}
+
+@Component({ selector: 'app-item-view-tuning', template: '' })
+export class StubItemViewTuningComponent {
+}
+
+@Component({ selector: 'app-item-view-transfer', template: '' })
+export class StubItemViewTransferComponent {
+}
+
+@Component({ selector: 'app-item-view-box', template: '' })
+export class StubItemViewBoxComponent {
+}
+
+@Component({ selector: 'app-item-view-extraction', template: '' })
+export class StubItemViewExtractionComponent {
+}
+
+@Component({ selector: 'app-item-view-shop', template: '' })
+export class StubItemViewShopComponent {
+}
+
+@Component({ selector: 'app-item-view-plate', template: '' })
+export class StubItemViewPlateComponent {
+}

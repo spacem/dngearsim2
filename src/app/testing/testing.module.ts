@@ -15,7 +15,17 @@ import {
   StubBuildAssignmentComponent,
   StubSkillSearchComponent,
   StubCustomItemsComponent,
-  StubEverythingSearchComponent
+  StubEverythingSearchComponent,
+  StubItemEditPotentialComponent,
+  StubItemViewCraftComponent,
+  StubItemViewSetComponent,
+  StubItemViewAttainmentComponent,
+  StubItemViewTuningComponent,
+  StubItemViewTransferComponent,
+  StubItemViewBoxComponent,
+  StubItemViewExtractionComponent,
+  StubItemViewShopComponent,
+  StubItemViewPlateComponent
 } from './testing.component';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -74,7 +84,17 @@ import { FormsModule } from '@angular/forms';
     StubBuildAssignmentComponent,
     StubSkillSearchComponent,
     StubCustomItemsComponent,
-    StubEverythingSearchComponent
+    StubEverythingSearchComponent,
+    StubItemEditPotentialComponent,
+    StubItemViewCraftComponent,
+    StubItemViewSetComponent,
+    StubItemViewAttainmentComponent,
+    StubItemViewTuningComponent,
+    StubItemViewTransferComponent,
+    StubItemViewBoxComponent,
+    StubItemViewExtractionComponent,
+    StubItemViewShopComponent,
+    StubItemViewPlateComponent
   ],
   providers: [
     { provide: TranslationService, useClass: TranslationServiceStub },
@@ -112,7 +132,17 @@ import { FormsModule } from '@angular/forms';
     StubBuildAssignmentComponent,
     StubSkillSearchComponent,
     StubCustomItemsComponent,
-    StubEverythingSearchComponent
+    StubEverythingSearchComponent,
+    StubItemEditPotentialComponent,
+    StubItemViewCraftComponent,
+    StubItemViewSetComponent,
+    StubItemViewAttainmentComponent,
+    StubItemViewTuningComponent,
+    StubItemViewTransferComponent,
+    StubItemViewBoxComponent,
+    StubItemViewExtractionComponent,
+    StubItemViewShopComponent,
+    StubItemViewPlateComponent
   ]
 })
 export class TestingModule { }

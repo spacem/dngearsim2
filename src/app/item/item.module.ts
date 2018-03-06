@@ -20,9 +20,11 @@ import { ItemComponent } from './item/item.component';
 import { ItemRoutingModule } from './item-routing.module';
 import { CoreModule } from '../core/core.module';
 import { BuildAssignmentComponent } from './build-assignment/build-assignment.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
+    TranslateModule.forChild(),
     CommonModule,
     ItemRoutingModule,
     CoreModule

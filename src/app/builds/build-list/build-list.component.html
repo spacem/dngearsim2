@@ -45,7 +45,3 @@
     <img src="assets/images/jasmin.png">
   </div>
 </div>
-<div class="row" *ngIf="currentGroup">
-  <app-build [buildName]="currentGroup" [build]="savedItems[currentGroup]" (buildChange)="handleChange()">
-  </app-build>
-</div>

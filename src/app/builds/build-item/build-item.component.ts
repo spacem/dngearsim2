@@ -11,6 +11,7 @@ export class BuildItemComponent implements OnInit {
   gemSlots = this.valuesService.gemExchanges;
   @Input() item;
   @Input() builds;
+  @Input() editMode: boolean;
 
   constructor(
     private valuesService: ValuesService

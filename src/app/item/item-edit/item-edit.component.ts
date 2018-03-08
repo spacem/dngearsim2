@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 
 @Component({
   selector: 'app-item-edit',
@@ -7,9 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ItemEditComponent implements OnInit {
 
+  @Input() item: any;
+  @Output() itemChange = new EventEmitter();
   constructor() { }
 
   ngOnInit() {
   }
 
+  onUpdateItem() {
+    this.itemChange.emit();
+  }
 }

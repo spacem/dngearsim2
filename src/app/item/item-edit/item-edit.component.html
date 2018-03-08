@@ -1,3 +1,21 @@
-<p>
-  item-edit works!
-</p>
+<div class="row">
+  <app-item-edit-enchantment [item]="item" on-change="onUpdateItem()">
+  </app-item-edit-enchantment>
+</div>
+<div class="row" *ngIf="item.typeName == 'talisman'">
+  <app-item-edit-talisman [item]="item" (itemChange)="onUpdateItem()">
+  </app-item-edit-talisman>
+</div>
+<div class="row" *ngIf="item.typeName == 'custom'">
+  <app-item-edit-custom [item]="item" (itemChange)="onUpdateItem()">
+  </app-item-edit-custom>
+</div>
+<div class="row" *ngIf="item.typeName == 'skills'">
+  <app-item-edit-skill [item]="item" (itemChange)="onUpdateItem()">
+  </app-item-edit-skill>
+</div>
+<div class="row">
+  <app-item-edit-spark [item]="item" (itemChange)="onUpdateItem()">
+  </app-item-edit-spark>
+</div>
+      

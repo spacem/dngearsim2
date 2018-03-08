@@ -66,7 +66,7 @@
         </div>
         <div class="col-xs-12 col-md-4" *ngIf="item.enchantmentStats && item.enchantmentStats.length > 0">
           <label>+{{item.enchantmentNum}} stats</label><br />
-          <app-stats [stats]="item.enchantmentStats">
+          <app-stats [stats]="item.enchantmentStats" brSeparator="true" >
           </app-stats>
           <br />
         </div>
@@ -76,7 +76,7 @@
           <br />
         </div>
       </div>
-      <app-item-edit item="item" on-change="handleChange()" update-item="handleChange()">
+      <app-item-edit [item]="item" (itemChange)="handleChange()">
       </app-item-edit>
     </div>
   </div>

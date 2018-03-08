@@ -1,3 +1,33 @@
-<p>
-  item-edit-enchantment works!
-</p>
+<div class="col-xs-12" *ngIf="enchantments && enchantments.length > 0">
+  <div class="form-group" *ngIf="enhancementOptions.length == 0">
+    <button class="btn btn-default" (dblclick)="prevEnchantment()" (click)="prevEnchantment()" [disabled]="item.enchantmentNum < 1">- reduce</button>
+    <button class="btn btn-default" (dblclick)="nextEnchantment()" (click)="nextEnchantment()" [disabled]="isMaxEnchantLevel()">+ increase</button>
+  </div>
+  <div class="form-group" *ngIf="enhancementOptions.length > 0">
+    <button 
+      class="btn btn-default btn-block"
+      (dblclick)="setEnchantmentNum(enhancementOption.number)"
+      (click)="setEnchantmentNum(enhancementOption.number)"
+      *ngFor="let enhancementOption of enhancementOptions">
+        +{{enhancementOption.number}}<br />
+        <app-stats [stats]="enhancementOption.stats" pipeSeparator="true"></app-stats>
+    </button>
+  </div>
+</div>
+<div class="col-xs-12" *ngIf="materials == null && !isMaxEnchantLevel() && enchantmentAfter != null">
+  <button (click)="showMaterials()" class="btn btn-link">&raquo;show enhancement info</button>
+</div>
+<div
+    class="col-xs-12" 
+    *ngIf="materials != null && enchantmentAfter != null && !isMaxEnchantLevel() && enhancementOptions.length > 0">
+  <label>when enhancing:</label><br />
+  cost: {{enchantmentCost}} | min down: {{enchantmentAfter.MinDown}} | max down: {{enchantmentAfter.MaxDown}}<br />
+  enchant ratio: {{enchantmentAfter.EnchantRatio | percent}} | break ratio: {{enchantmentAfter.BreakRatio | percent}}<br />
+  <span *ngIf="enchantmentAfter && enchantmentAfter.ProtectItemCount > 0 && materials != null">
+  {{enchantmentAfter.ProtectItemCount}} Jellies required for protection
+  <br />
+  </span>
+  <div *ngFor="let material of materials">
+    <div><app-item-link [item]="material.item"></app-item-link></div>x{{material.num}}
+  </div>
+</div>

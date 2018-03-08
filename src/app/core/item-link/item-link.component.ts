@@ -11,15 +11,17 @@ export class ItemLinkComponent implements OnInit {
 
   @Input() item: any;
 
-  itemLink;
+  get itemLink() {
+    if (this.regionService.dntLocation) {
+      return '/' + this.regionService.dntLocation.region + '/item/' + this.exportLinkService.encodeItem(this.item);
+    }
+  }
+
   constructor(
     private regionService: RegionService,
-    private exportLinkService: ExportLinkService) {}
+    private exportLinkService: ExportLinkService) { }
 
   ngOnInit() {
-    if(this.regionService.dntLocation) {
-      this.itemLink = '/' + this.regionService.dntLocation.region + '/item/' + this.exportLinkService.encodeItem(this.item);
-    }
   }
 
 }

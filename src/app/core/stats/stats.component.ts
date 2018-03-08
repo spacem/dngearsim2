@@ -23,13 +23,15 @@ export class StatsComponent implements OnInit {
   @Input() brSeparator: boolean;
   @Input() pipeSeparator: boolean;
 
-  statDisplay: StatDisplay[] = [];
-
   constructor(
     private valuesService: ValuesService,
     private translateService: TranslateService) { }
 
   ngOnInit() {
+  }
+
+  getStatDisplay() {
+    let statDisplay = [];
     var stats = this.stats;
     if (!stats) {
       stats = this.altStats;
@@ -111,7 +113,7 @@ export class StatsComponent implements OnInit {
           output += '&nbsp;|&nbsp;' + sDef.display(sStat);
         }
         else {
-          this.statDisplay.push({
+          statDisplay.push({
             set: set,
             title: title,
             value: output
@@ -124,12 +126,13 @@ export class StatsComponent implements OnInit {
         }
 
         output += stat.id + ':&nbsp;' + stat.max;
-        this.statDisplay.push({
+        statDisplay.push({
           set: set,
           title: title,
           value: output
         });
       }
     });
+    return statDisplay;
   }
 }

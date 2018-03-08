@@ -17,7 +17,9 @@ export class StubStatsComponent {
 }
 
 @Component({ selector: 'app-item-edit', template: '' })
-export class StubItemEditComponent { }
+export class StubItemEditComponent {
+    @Input() item;
+}
 
 @Component({ selector: 'app-item-icon', template: '' })
 export class StubItemIconComponent {
